@@ -39,7 +39,7 @@ db.exec(`
 async function loadCSV() {
   try {
     const response = await axios.get(
-      'https://raw.githubusercontent.com/zolodio/Avatar-TCG-Database/refs/heads/main/Avatar%20Quick%20Strike%20TCG%20Database%20GitHub.csv'
+      'https://raw.githubusercontent.com/zolodio/Avatar-TCG-Database/refs/heads/TESTING-STOREFRONT/Avatar%20Quick%20Strike%20TCG%20Database%20GitHub.csv'
     );
     
     Papa.parse(response.data, {
