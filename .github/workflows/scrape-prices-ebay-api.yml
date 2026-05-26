@@ -1,0 +1,33 @@
+name: Scrape Avatar TCG Prices (eBay API)
+
+on:
+  # Trigger manually from GitHub UI with a button
+  workflow_dispatch:
+  
+  # Run automatically every Sunday at 2 AM UTC
+  schedule:
+    - cron: '0 2 * * 0'
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      
+      - name: Install dependencies
+        run: npm install @supabase/supabase-js axios papaparse
+      
+      - name: Run price scraper (eBay API)
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          EBAY_CLIENT_ID: ${{ secrets.EBAY_CLIENT_ID }}
+          EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
+        run: node scripts/populate-prices-ebay-api.js
